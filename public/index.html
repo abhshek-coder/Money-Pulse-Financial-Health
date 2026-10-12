@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f1118"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MoneyPulse"><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" type="image/svg+xml" href="/icon.svg?v=28"><link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>MoneyPulse — Financial Health</title><link rel="stylesheet" href="/styles.css?v=28">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<header class="topbar">
+  <a class="brand" href="/input"><span class="brandmark"><img src="/icon.svg?v=28" alt="" width="32" height="32"></span><span><strong>MoneyPulse</strong><small>Financial health</small></span></a>
+  <div class="top-actions">
+    <select id="monthSelect" class="month-select hidden" aria-label="Selected month"></select>
+    <button id="themeBtn" class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" title="Switch light/dark theme"><span class="theme-switch-icon theme-sun">☼</span><span class="theme-switch-track"><span class="theme-switch-thumb"></span></span><span class="theme-switch-icon theme-moon">☾</span></button>
+    <span id="userChip" class="user-chip hidden"><span id="userAvatar">U</span><span id="userName"></span><button id="logoutBtn">Log out</button></span>
+  </div>
+</header>
+
+<main>
+<section id="authView" class="auth-wrap">
+  <div class="auth-copy"><span class="eyebrow">PRIVATE • PERSONAL • SIMPLE</span><h1>Your money,<br><em>in focus.</em></h1><p>A short monthly check-in for cash flow, protection, saving and progress.</p><div class="trust-row"><span>✓ Private account</span><span>✓ Gmail verification</span><span>✓ Monthly history</span></div></div>
+  <div class="auth-card"><div class="auth-tabs"><button class="auth-tab active" data-auth="login">Sign in</button><button class="auth-tab" data-auth="register">Create account</button></div>
+    <form id="loginForm"><label>Email<input id="loginEmail" type="email" autocomplete="email" required placeholder="you@gmail.com"></label><label>Password<input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"></label><button class="primary wide" type="submit">Sign in securely →</button></form>
+    <form id="registerForm" class="hidden"><label>Your name<input id="registerName" required maxlength="60" placeholder="Your name"></label><label>Gmail / email<input id="registerEmail" type="email" autocomplete="email" required placeholder="you@gmail.com"></label><label>Password<input id="registerPassword" type="password" minlength="8" required placeholder="At least 8 characters"></label><button class="primary wide" type="submit">Create private account →</button></form>
+    <div id="verifyBox" class="verify hidden"></div><button id="resendBtn" class="secondary wide hidden" type="button">Resend verification email</button><div id="mailStatus" class="mail-status"></div><p class="micro">Your financial entries are linked to your private account and selected month.</p>
+  </div>
+</section>
+
+<section id="appView" class="hidden">
+  <div id="monthGate" class="month-gate"><div class="month-gate-card"><span class="eyebrow">START WITH A MONTH</span><h1>Which month are we checking?</h1><p>Choose a month first. Everything you save is stored separately for that month.</p><div class="month-pickers"><label>Month<select id="gateMonth"></select></label><label>Year<select id="gateYear"></select></label></div><button id="startMonthBtn" class="primary month-start" type="button">Continue →</button></div></div>
+  <div id="workspace" class="hidden">
+    <div class="workspace-layout">
+      <aside class="sidebar">
+        <div class="side-label">WORKSPACE</div>
+        <nav class="side-nav" aria-label="MoneyPulse pages">
+          <a class="nav-link" data-page="overview" href="/input"><span class="nav-icon">⌂</span><span><b>Overview</b><small>Monthly snapshot</small></span></a>
+          <a class="nav-link" data-page="income" href="/income"><span class="nav-icon">₹</span><span><b>Income</b><small>Money coming in</small></span></a>
+          <a class="nav-link" data-page="expenses" href="/expenses"><span class="nav-icon">▦</span><span><b>Monthly bills & expenses</b><small>Home and daily costs</small></span></a>
+          <a class="nav-link" data-page="protection" href="/protection"><span class="nav-icon">♢</span><span><b>Safety & goals</b><small>Protection and investing</small></span></a>
+          <a class="nav-link" data-page="score" href="/score"><span class="nav-icon">◔</span><span><b>Your score</b><small>100-point health check</small></span></a>
+          <a class="nav-link" data-page="actions" href="/actions"><span class="nav-icon">✓</span><span><b>Strengths & actions</b><small>What to do next</small></span></a>
+          <a class="nav-link" data-page="compare" href="/compare"><span class="nav-icon">↕</span><span><b>Monthly comparison</b><small>Track progress</small></span></a>
+        </nav>
+        <button id="aiCoachBtn" class="ai-coach-trigger" type="button"><span>✦</span><span><b>AI Coach</b><small>Ask about your money</small></span></button>
+        <div class="side-note"><b>Private by design</b><span>Your financial data stays attached to your account and month.</span></div>
+      </aside>
+
+      <section class="content-area">
+        <div class="page-head"><div><span id="pageEyebrow" class="eyebrow">MONEY PULSE</span><h1 id="pageTitle">Overview</h1><p id="pageDescription">Your monthly financial workspace.</p></div><div class="page-month"><span>CHECKING</span><b id="pageMonthLabel">—</b></div></div>
+
+        <section id="tab-overview" class="tab-page">
+          <div class="hero-compact"><div><span class="eyebrow">MONTHLY CHECK-IN</span><h2>Make your money easier to understand.</h2><p>Add your income, bills and safety goals in a few short steps. Save this month to see your score, progress and practical next steps.</p></div><button class="primary" type="button" data-go="income">Start with income →</button></div>
+          <div class="overview-grid"><a class="feature-card" href="/income"><span class="feature-icon">₹</span><b>Income</b><p>Tell us what comes into your household each month.</p><span>Open section →</span></a><a class="feature-card" href="/expenses"><span class="feature-icon">▦</span><b>Monthly bills & expenses</b><p>Capture EB, rent, WiFi, DTH & phone costs, plus everyday spending.</p><span>Open section →</span></a><a class="feature-card" href="/protection"><span class="feature-icon">♢</span><b>Safety & goals</b><p>Record insurance, emergency savings and investments.</p><span>Open section →</span></a></div>
+          <div class="mini-dashboard"><div><span>Selected month</span><b id="overviewMonth">—</b></div><div><span>Income entered</span><b id="overviewIncome">₹0</b></div><div><span>Expenses entered</span><b id="overviewExpenses">₹0</b></div><div><span>Monthly surplus</span><b id="overviewSurplus">₹0</b></div></div>
+          <div class="overview-note"><span class="overview-note-icon">↗</span><div><b>Your progress, month by month</b><p>Each month is saved as a separate record under your account. Choose a new month after login to start a fresh check-in, or select a saved month to review it.</p></div><button class="secondary" type="button" data-go="compare">View comparison →</button></div>
+        </section>
+
+        <form id="financeForm" novalidate>
+        <section id="tab-income" class="tab-page hidden">
+          <div class="section-intro"><span class="section-icon">₹</span><div><h2>Income</h2><p>Start with the money available to your household each month. Use take-home income, not gross salary.</p></div></div>
+          <section class="panel"><div class="income-grid"><div><label>Your monthly income <span>(take-home) *</span><div class="money-input"><b>₹</b><input id="income" data-money type="number" min="0" step="100" required placeholder="0"></div></label><div class="chips" data-target="income"><button type="button" data-value="25000">₹25K</button><button type="button" data-value="50000">₹50K</button><button type="button" data-value="75000">₹75K</button><button type="button" data-value="100000">₹1L</button><button type="button" data-value="150000">₹1.5L</button><button type="button" data-value="200000">₹2L</button></div></div><div><label>Spouse / other monthly income <span>(optional)</span><div class="money-input"><b>₹</b><input id="spouse_income" data-money type="number" min="0" step="100" placeholder="0"></div></label><div class="chips" data-target="spouse_income"><button type="button" data-value="0">₹0</button><button type="button" data-value="25000">₹25K</button><button type="button" data-value="50000">₹50K</button></div></div></div></section>
+          <div class="page-actions"><button class="primary" type="button" data-go="expenses">Next: Monthly bills & expenses →</button></div>
+        </section>
+
+        <section id="tab-expenses" class="tab-page hidden">
+          <div class="section-intro"><span class="section-icon">▦</span><div><h2>Monthly bills & expenses</h2><p>Enter the recurring bills first, then add food, travel and other monthly spending. Leave anything unused at zero.</p></div></div>
+          <section class="panel"><div class="section-heading"><div><h2>Household bills & utilities</h2><p>Regular home costs, including electricity, rent, internet, DTH/OTT and phone bills.</p></div></div><div id="billGrid" class="field-grid bills-grid"></div></section>
+          <section class="panel"><div class="section-heading"><div><h2>Living, travel & education costs</h2><p>Add everyday spending, commuting and education fees, tuition, books or course costs.</p></div></div><div id="expenseGrid" class="field-grid"></div></section>
+          <section class="panel expense-score-panel"><div class="expense-score-copy"><span class="eyebrow">LIVE CHECK-IN</span><h2>Your financial health score</h2><p>As you enter expenses, this preview updates to show how your monthly cash flow is shaping your score.</p><small>Save your month to keep a permanent record.</small></div><div class="expense-score-wheel"><svg viewBox="0 0 120 120" role="img" aria-label="Live financial health score"><circle class="expense-score-track" cx="60" cy="60" r="48"/><circle id="expenseScoreArc" class="expense-score-arc" cx="60" cy="60" r="48" pathLength="100" stroke-dasharray="0 100"/></svg><div class="expense-score-number"><b id="expenseScoreValue">0</b><span>/ 100</span><small id="expenseScoreLabel">Needs attention</small></div></div></section>
+          <div class="page-actions"><button class="secondary" type="button" data-go="income">← Back to income</button><button class="primary" type="button" data-go="protection">Next: Safety & goals →</button></div>
+        </section>
+
+        <section id="tab-protection" class="tab-page hidden">
+          <div class="section-intro"><span class="section-icon">♢</span><div><h2>Safety & goals</h2><p>These inputs show how prepared you are for surprises and how consistently you build long-term wealth.</p></div></div>
+          <section class="panel"><div class="field-grid four"><label><span class="field-icon">♥</span>Health insurance<div class="money-input"><b>₹</b><input id="health_insurance" data-money type="number" min="0" step="1000" placeholder="0"></div><small>Approximate total cover.</small></label><label><span class="field-icon">◇</span>Life / term insurance<div class="money-input"><b>₹</b><input id="life_insurance" data-money type="number" min="0" step="1000" placeholder="0"></div><small>Total cover amount.</small></label><label><span class="field-icon">◒</span>Emergency fund<div class="money-input"><b>₹</b><input id="emergency_fund" data-money type="number" min="0" step="1000" placeholder="0"></div><small>Money set aside for emergencies.</small></label><label><span class="field-icon">↗</span>Monthly investments<div class="money-input"><b>₹</b><input id="investments" data-money type="number" min="0" step="100" placeholder="0"></div><small>Regular monthly investing.</small></label></div></section>
+          <div class="save-card"><div><span class="eyebrow">READY TO SAVE</span><h3>Save this month when you are done.</h3><p id="saveHint">Your entries will be stored under the selected month.</p><strong id="liveSummary">₹0 expenses · ₹0 surplus</strong></div><div class="form-actions"><button id="resetBtn" class="secondary" type="button">Reset</button><button id="saveBtn" class="primary save-btn" type="submit">Save my month ✓</button></div></div>
+        </section>
+        </form>
+
+        <section id="tab-score" class="tab-page hidden">
+    <div class="result-head"><div><span class="eyebrow">YOUR SNAPSHOT</span><h2>Financial health score</h2><p id="scoreSummary"></p></div><div class="score-pill"><b id="score">0</b><span>/ 100</span><strong id="scoreLabel">—</strong></div></div>
+    <div class="stats"><div><span>Total monthly income</span><b id="rIncome">₹0</b></div><div><span>Monthly expenses</span><b id="rExpenses">₹0</b></div><div><span>Monthly surplus</span><b id="rSurplus">₹0</b></div><div><span>Monthly investing</span><b id="rInvested">₹0</b></div></div>
+    <div class="dashboard-grid">
+      <section class="panel gauge-panel"><h2>Your score</h2><div class="gauge"><svg viewBox="0 0 320 190"><path class="gauge-bg" pathLength="100" d="M45 155 A115 115 0 0 1 275 155"/><path id="gaugeProgress" class="gauge-progress" pathLength="100" d="M45 155 A115 115 0 0 1 275 155"/><line id="gaugeNeedle" x1="160" y1="155" x2="160" y2="65"/><circle cx="160" cy="155" r="10"/></svg><div class="gauge-number"><b id="scoreBig">0</b><span>out of 100</span></div></div></section>
+      <section class="panel"><h2>Key ratios</h2><p class="muted">How the important signals compare with simple guideposts.</p><div id="ratioCards" class="ratio-grid"></div></section>
+    </div>
+    <div class="two-col"><section class="panel"><h2>Expense distribution</h2><div class="distribution"><div id="donut" class="donut"><div><b id="donutPct">0%</b><span>spent</span></div></div><div id="legend" class="legend"></div></div></section><section class="panel"><h2>Expense categories</h2><div id="bars" class="bars"></div></section></div>
+
+    <section class="panel feedback-prompt">
+      <div class="feedback-prompt-icon" aria-hidden="true">★</div>
+      <div class="feedback-prompt-copy"><span class="eyebrow">HELP US IMPROVE</span><h2>How is your MoneyPulse experience?</h2><p>Your feedback helps us make your financial-health check-in more useful.</p></div>
+      <button id="openFeedbackBtn" class="primary" type="button">Share feedback →</button>
+    </section>
+    <div class="form-actions result-actions"><button id="editBtn" class="secondary" type="button">← Edit inputs</button><button id="printBtn" class="secondary" type="button">Print / Save PDF</button><button class="primary" type="button" data-go="actions">Next: Strengths & actions →</button></div>
+  </section>
+        <section id="tab-actions" class="tab-page hidden">
+    <div class="result-head"><div><span class="eyebrow">NEXT BEST STEPS</span><h2>Strengths & actions</h2><p>Focus on the biggest opportunities first.</p></div></div>
+    <div class="two-col"><section class="panel"><h2 class="green">Strengths</h2><div id="strengths"></div></section><section class="panel"><h2 class="red">Gaps to work on</h2><div id="weaknesses"></div></section></div>
+    <section class="panel"><h2>Recommended actions</h2><p class="muted">Practical, rule-based suggestions based on this month's inputs.</p><div id="actions" class="actions"></div></section>
+    <details class="panel formula"><summary>How is this score calculated?</summary><div id="formulaText"></div></details>
+    <div class="page-actions"><button class="secondary" type="button" data-go="score">← Back to your score</button><button class="primary" type="button" data-go="compare">Next: Monthly comparison →</button></div>
+  </section>
+        <section id="tab-compare" class="tab-page hidden">
+    <div class="result-head"><div><span class="eyebrow">TRACK YOUR PROGRESS</span><h2>Monthly comparison</h2><p>Every saved month stays in your account so you can see what is improving.</p></div></div>
+    <section class="panel"><div class="compare-toolbar"><label>Month<select id="compareMonth"></select></label><button id="refreshCompare" class="secondary" type="button">Refresh</button></div><div id="compareTableWrap" class="table-wrap"></div></section>
+    <section class="panel"><h2>Month-over-month snapshot</h2><div id="compareCards" class="compare-cards"></div></section>
+  </section>
+      </section>
+    </div>
+  </div>
+</section>
+
+<div id="saveModal" class="save-modal hidden" role="dialog" aria-modal="true"><div class="save-backdrop"></div><section class="save-dialog"><div id="confetti" class="confetti"></div><div class="success-icon">✓</div><span class="eyebrow">MONTH SAVED</span><h2>Thank you!</h2><p>Your data is saved successfully.</p><div class="save-mail-note" id="saveMailNote">Your monthly check-in is now part of your MoneyPulse history.</div><button id="saveContinueBtn" class="primary wide" type="button">See my score →</button></section></div>
+
+<div id="verifyModal" class="verify-modal hidden" role="dialog" aria-modal="true"><div class="verify-modal-backdrop" data-close-verify></div><section class="verify-dialog"><button id="closeVerifyBtn" class="verify-close" type="button">×</button><span class="eyebrow">EMAIL VERIFICATION</span><h2>Verify your email to continue</h2><p id="verifyModalText"></p><div id="verifyModalStatus" class="verify-modal-status"></div><div id="verifyModalLink" class="verify-modal-link hidden"></div><div class="verify-modal-actions"><button id="verifyResendBtn" class="primary" type="button">Resend verification email</button><button id="verifyCloseAction" class="secondary" type="button">I'll verify later</button></div></section></div>
+
+<div id="aiModal" class="ai-modal hidden" role="dialog" aria-modal="true"><div class="ai-modal-backdrop" data-close-ai></div><section class="ai-dialog"><div class="ai-dialog-head"><div><span class="eyebrow">MONEY PULSE AI</span><h2>AI Coach</h2><p>Ask about this month's score, spending, savings or next steps.</p><span id="aiStatus" class="ai-status">Checking AI connection…</span></div><button id="closeAiBtn" class="ai-close" type="button">×</button></div><div id="chatMessages" class="chat-messages"><div class="chat bubble assistant"><b>MoneyPulse AI</b><span>Hi! Ask me about your score, a ratio, a spending category, or how to improve next month.</span></div></div><div class="chat-suggestions"><button type="button">Why is my score this high?</button><button type="button">Explain my biggest gap</button><button type="button">How can I improve next month?</button></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="2500" placeholder="Ask anything about this month's financial health…" autocomplete="off"><button class="primary" type="submit">Send</button></form><p class="micro">AI explanations are educational and use your selected month's snapshot.</p></section></div>
+
+<div id="ratingModal" class="feedback-modal hidden" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
+  <div class="feedback-backdrop" data-close-feedback></div>
+  <section class="feedback-dialog">
+    <button class="feedback-close" type="button" data-close-feedback aria-label="Close feedback">×</button>
+    <span class="eyebrow">STEP 1 OF 2 · YOUR RATING</span>
+    <div class="feedback-emoji" aria-hidden="true">✦</div>
+    <h2 id="ratingTitle">How would you rate MoneyPulse?</h2>
+    <p>Choose a star rating from 1 (needs improvement) to 5 (excellent).</p>
+    <div class="rating-stars" role="radiogroup" aria-label="Rate MoneyPulse from one to five stars">
+      <button type="button" class="rating-star" data-rating="1" role="radio" aria-checked="false" aria-label="1 star">★</button>
+      <button type="button" class="rating-star" data-rating="2" role="radio" aria-checked="false" aria-label="2 stars">★</button>
+      <button type="button" class="rating-star" data-rating="3" role="radio" aria-checked="false" aria-label="3 stars">★</button>
+      <button type="button" class="rating-star" data-rating="4" role="radio" aria-checked="false" aria-label="4 stars">★</button>
+      <button type="button" class="rating-star" data-rating="5" role="radio" aria-checked="false" aria-label="5 stars">★</button>
+    </div>
+    <div id="ratingLabel" class="rating-label" aria-live="polite">Select a rating</div>
+    <div class="feedback-actions"><button class="secondary" type="button" data-close-feedback>Cancel</button><button id="ratingContinueBtn" class="primary" type="button" disabled>Continue →</button></div>
+  </section>
+</div>
+
+<div id="textFeedbackModal" class="feedback-modal hidden" role="dialog" aria-modal="true" aria-labelledby="textFeedbackTitle">
+  <div class="feedback-backdrop" data-close-text-feedback></div>
+  <section class="feedback-dialog">
+    <button class="feedback-close" type="button" data-close-text-feedback aria-label="Close feedback">×</button>
+    <span class="eyebrow">STEP 2 OF 2 · TELL US MORE</span>
+    <div class="feedback-emoji" aria-hidden="true">✎</div>
+    <h2 id="textFeedbackTitle">What can we do better?</h2>
+    <p>Your rating is <strong id="selectedRatingText">0 out of 5 stars</strong>. Share what you liked or what we should improve.</p>
+    <form id="feedbackForm">
+      <label class="feedback-label" for="feedbackText">Your feedback <span>(optional)</span></label>
+      <textarea id="feedbackText" maxlength="2000" rows="5" placeholder="Tell us about your experience with MoneyPulse…" ></textarea>
+      <div class="feedback-char-count"><span>Keep it kind and constructive.</span><span id="feedbackCharCount">0 / 2000</span></div>
+      <div class="feedback-actions"><button id="feedbackBackBtn" class="secondary" type="button">← Back</button><button id="submitFeedbackBtn" class="primary" type="submit">Submit feedback ✓</button></div>
+    </form>
+  </section>
+</div>
+
+<div id="feedbackThanksModal" class="feedback-modal hidden" role="dialog" aria-modal="true" aria-labelledby="feedbackThanksTitle">
+  <div class="feedback-backdrop" data-close-thanks-feedback></div>
+  <section class="feedback-dialog feedback-thanks">
+    <div class="feedback-thanks-icon">✓</div><span class="eyebrow">FEEDBACK RECEIVED</span>
+    <h2 id="feedbackThanksTitle">Thank you for helping us improve!</h2>
+    <p>Your feedback has been saved. We appreciate you taking the time to share your experience.</p>
+    <button class="primary wide" type="button" data-close-thanks-feedback>Done</button>
+  </section>
+</div>
+</main>
+<script src="/app.js?v=28"></script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/service-worker.js").catch(err=>console.info("Offline shell not enabled:",err)));}</script>
+</body></html>
